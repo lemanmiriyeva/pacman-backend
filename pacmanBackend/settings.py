@@ -77,10 +77,21 @@ WSGI_APPLICATION = 'pacmanBackend.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'Telegram'),  # Replace with your database name
+        'USER': os.getenv('POSTGRES_USER', 'admin'),  # Replace with your PostgreSQL username
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'adminadmin'),  # Replace with your password
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),  # Replace with your database host (e.g., localhost)
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),  # Default PostgreSQL port
     }
 }
 CORS_ALLOWED_ORIGINS = [
