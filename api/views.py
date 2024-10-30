@@ -17,7 +17,7 @@ def add_or_update_user(request):
 
     if not created:
         # Kullanıcı zaten varsa, skorunu toplar
-        user.score = score
+        user.score += score
         user.save()
     else:
         # Kullanıcı yeni eklenmişse başlangıç skorunu atar
@@ -34,7 +34,7 @@ def update_score(request):
     try:
         user = TelegramUser.objects.get(user_id=user_id)
         # Skoru mevcut skora ekler
-        user.score = additional_score
+        user.score += additional_score
         user.save()
         return Response({'message': 'Score updated', 'total_score': user.score}, status=status.HTTP_200_OK)
     except TelegramUser.DoesNotExist:
