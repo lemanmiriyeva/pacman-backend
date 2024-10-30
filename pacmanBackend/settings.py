@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9!ueq$2pn$*w1$p=hr2_r!5o9nfl9tc=266dzq339it1k^%z%-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -86,14 +86,16 @@ WSGI_APPLICATION = 'pacmanBackend.wsgi.app'
 import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'Telegram'),  # Replace with your database name
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('POSTGRES_DATABASE', 'Telegram'),  # Replace with your database name
         'USER': os.getenv('POSTGRES_USER', 'admin'),  # Replace with your PostgreSQL username
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'adminadmin'),  # Replace with your password
         'HOST': os.getenv('POSTGRES_HOST', 'localhost'),  # Replace with your database host (e.g., localhost)
         'PORT': os.getenv('POSTGRES_PORT', '5432'),  # Default PostgreSQL port
     }
 }
+
+pacman-backend-postgres
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
@@ -137,6 +139,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+import os
+
+STATIC_ROOT =  os.path.join(BASE_DIR,'staticfiles_builds',"static")
+MEDIA_URLS = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+ALLOWED_HOSTS = ['*']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
