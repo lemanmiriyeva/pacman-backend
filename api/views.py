@@ -45,3 +45,11 @@ def leaderboard(request):
     top_users = TelegramUser.objects.order_by('-score')[:10]
     serializer = TelegramUserSerializer(top_users, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_user_score(request, user_id):
+    try:
+        user = TelegramUser.objects.get(user_id=user_id)
+        return Response({'last_score': user.score}, status=status.HTTP_200_OK)
+    except TelegramUser.DoesNotExist:
+        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
